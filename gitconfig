@@ -1,0 +1,7 @@
+[user]
+	email = brad@bradleyboy.com
+	name = Brad Daily
+[credential]
+	helper = osxkeychain
+[include]
+    path = ~/.gitconfig.aliases

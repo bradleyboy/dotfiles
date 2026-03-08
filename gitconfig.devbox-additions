@@ -1,0 +1,4 @@
+# BEGIN_GITCONFIG_ADDITIONS
+[include]
+    path = ~/.gitconfig.aliases
+# END_GITCONFIG_ADDITIONS

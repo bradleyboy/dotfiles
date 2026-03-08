@@ -1,0 +1,15 @@
+[alias]
+    ap = add --patch
+    bl = blame -w
+    br = branch
+    ci = commit
+    co = checkout
+    df = diff
+    l = log --graph --decorate
+    lg = log --decorate -p
+    rpull = pull --rebase --stat
+    pullr = pull --rebase
+    st = status
+    unstage = reset
+    rpom = pull --rebase --stat origin master
+    prom = pull --rebase origin master

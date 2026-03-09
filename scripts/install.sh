@@ -18,7 +18,13 @@ if [ "$UNAME" == "linux" ]; then
 
   echo "Installing neovim..."
   mkdir -p "$HOME/.local/bin"
-  curl -sL https://github.com/neovim/neovim/releases/download/stable/nvim-linux-x86_64.appimage -o "$HOME/.local/bin/nvim"
+  ARCH=$(uname -m)
+  if [ "$ARCH" == "aarch64" ] || [ "$ARCH" == "arm64" ]; then
+    NVIM_ARCH="arm64"
+  else
+    NVIM_ARCH="x86_64"
+  fi
+  curl -sL "https://github.com/neovim/neovim/releases/download/stable/nvim-linux-${NVIM_ARCH}.appimage" -o "$HOME/.local/bin/nvim"
   chmod +x "$HOME/.local/bin/nvim"
 else
   brew install tmux

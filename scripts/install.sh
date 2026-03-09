@@ -9,12 +9,21 @@ mkdir -p "$HOME/.zsh"
 
 if [ "$UNAME" == "linux" ]; then
   sudo apt update
-  sudo apt-get -y install tmux highlight
+  sudo apt-get -y install tmux highlight fd-find ripgrep
 
   [ ! -d "$HOME/.fzf" ] && git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install --all
 
+  # symlink fd-find to fd so telescope works
+  ln -s $(which fdfind) ~/.local/bin/fd
+
   echo "Download tmux plugin manager"
   [ ! -d "$HOME/.tmux/plugins/tpm" ] && git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+  # Set up npm global directory in user's home to avoid permission issues
+  mkdir -p ~/.npm-global
+  npm config set prefix '~/.npm-global'
+  export PATH=~/.npm-global/bin:$PATH
+  npm install -g typescript-language-server
 
   echo "Installing neovim..."
   mkdir -p "$HOME/.local/bin"

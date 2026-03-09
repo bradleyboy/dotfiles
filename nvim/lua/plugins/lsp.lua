@@ -184,11 +184,6 @@ return {
 			--  - settings (table): Override the default settings passed when initializing the server.
 			--        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
 			local servers = {
-				ts_ls = {
-					root_dir = function()
-						return nil
-					end,
-				},
 				-- ts_ls = {
 				-- 	root_dir = function(fname)
 				-- 		if util.root_pattern("deno.json")(fname) then

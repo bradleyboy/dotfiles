@@ -14,7 +14,8 @@ if [ "$UNAME" == "linux" ]; then
   [ ! -d "$HOME/.fzf" ] && git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install --all
 
   # symlink fd-find to fd so telescope works
-  ln -s $(which fdfind) ~/.local/bin/fd
+  mkdir -d $HOME/.local/bin
+  ln -s $(which fdfind) $HOME/.local/bin/fd
 
   echo "Download tmux plugin manager"
   [ ! -d "$HOME/.tmux/plugins/tpm" ] && git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm

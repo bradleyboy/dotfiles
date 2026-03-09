@@ -11,7 +11,7 @@ COMPLETION_WAITING_DOTS="true"
 # that the plugins below install.
 export PATH="$PATH:$HOME/.fzf/bin:$HOME/.rvm/bin:$HOME/.deno/bin:$HOME/.cargo/bin:$HOME/bin:$HOME/.local/bin"
 [[ "$(uname)" == "Darwin" ]] && export PATH="$PATH:/opt/homebrew/bin"
-[[ "$(uname)" == "Linux" ]] && export PATH="$PATH:$HOME//.npm-global/bin"
+[[ "$(uname)" == "Linux" ]] && export PATH="$PATH:$HOME/.npm-global/bin"
 export EDITOR="nvim"
 export VISUAL="nvim"
 

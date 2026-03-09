@@ -24,7 +24,8 @@ if [ "$UNAME" == "linux" ]; then
   mkdir -p ~/.npm-global
   npm config set prefix '~/.npm-global'
   export PATH=~/.npm-global/bin:$PATH
-  npm install -g typescript-language-server
+  # For typescript-tools
+  npm install -g typescript
 
   echo "Installing neovim..."
   mkdir -p "$HOME/.local/bin"

@@ -18,16 +18,21 @@ export VISUAL="nvim"
 autoload edit-command-line; zle -N edit-command-line
 bindkey -M vicmd v edit-command-line
 
+# Load Stripe shellinit early so Pure prompt overrides its default PROMPT
+if [[ -f ~/.stripe/shellinit/zshrc ]]; then
+  source ~/.stripe/shellinit/zshrc
+fi
+
 # pure prompt
 fpath+=($HOME/.zsh/pure)
 autoload -Uz promptinit; promptinit
-prompt pure
 PURE_PROMPT_SYMBOL="→"
 PURE_GIT_PULL=0
 # color tweaks to match tokyonight a bit more
 zstyle :prompt:pure:git:branch color '#a9b1d6'
 zstyle :prompt:pure:git:branch:cached color '#a9b1d6'
 zstyle :prompt:pure:git:dirty color '#c7a9ff'
+prompt pure
 
 # plugins
 znap source ohmyzsh/ohmyzsh plugins/git
@@ -101,9 +106,5 @@ export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
   --color=separator:#ff9e64 \
   --color=spinner:#ff007c \
 "
-
-if [[ -f ~/.stripe/shellinit/zshrc ]]; then
-  source ~/.stripe/shellinit/zshrc
-fi
 
 [ -f "$HOME/.local/share/../bin/env" ] && . "$HOME/.local/share/../bin/env"

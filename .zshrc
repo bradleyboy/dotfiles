@@ -108,3 +108,8 @@ export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
 "
 
 [ -f "$HOME/.local/share/../bin/env" ] && . "$HOME/.local/share/../bin/env"
+
+# If devbox name exists, use it in the title
+if [[ "$(uname)" == "Linux" && -n "$box_name" ]]; then
+  tmux set-option -g set-titles-string "$box_name / #W"
+fi

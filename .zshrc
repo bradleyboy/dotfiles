@@ -109,6 +109,14 @@ export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
 
 [ -f "$HOME/.local/share/../bin/env" ] && . "$HOME/.local/share/../bin/env"
 
+devbox() {
+  if [[ -z "$1" ]]; then
+    echo "Usage: devbox <name>"
+    return 1
+  fi
+  pay remote new "$1" --repo "stripe-internal/mint:bdaily-$1" --workspace pay-server --ide none -y --notify-on-ready --ssh --tmux
+}
+
 # If devbox name exists, use it in the title
 if [[ "$(uname)" == "Linux" && -n "$box_name" ]]; then
   tmux set-option -g set-titles-string "$box_name / #W"

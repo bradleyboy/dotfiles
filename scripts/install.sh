@@ -7,10 +7,6 @@ echo "Making sure pure prompt is installed"
 mkdir -p "$HOME/.zsh"
 [ ! -d "$HOME/.zsh/pure" ] && git clone https://github.com/sindresorhus/pure.git "$HOME/.zsh/pure"
 
-echo "Pre-installing zsh-snap and plugins"
-[ ! -d "$HOME/Git/zsh-snap" ] && git clone --depth 1 https://github.com/marlonrichert/zsh-snap.git "$HOME/Git/zsh-snap"
-zsh -ic 'exit' 2>/dev/null || true
-
 if [ "$UNAME" == "linux" ]; then
   sudo apt update
   sudo apt-get -y install tmux highlight fd-find ripgrep

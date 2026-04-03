@@ -15,6 +15,7 @@ export PATH="$PATH:$HOME/.fzf/bin:$HOME/.rvm/bin:$HOME/.deno/bin:$HOME/.cargo/bi
 export EDITOR="nvim"
 export VISUAL="nvim"
 
+bindkey -v
 autoload edit-command-line; zle -N edit-command-line
 bindkey -M vicmd v edit-command-line
 

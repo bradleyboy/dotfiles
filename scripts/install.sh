@@ -7,6 +7,10 @@ echo "Making sure pure prompt is installed"
 mkdir -p "$HOME/.zsh"
 [ ! -d "$HOME/.zsh/pure" ] && git clone https://github.com/sindresorhus/pure.git "$HOME/.zsh/pure"
 
+echo "Pre-installing zsh-snap and plugins"
+[ ! -d "$HOME/Git/zsh-snap" ] && git clone --depth 1 https://github.com/marlonrichert/zsh-snap.git "$HOME/Git/zsh-snap"
+zsh -ic 'exit' 2>/dev/null || true
+
 if [ "$UNAME" == "linux" ]; then
   sudo apt update
   sudo apt-get -y install tmux highlight fd-find ripgrep
@@ -24,8 +28,10 @@ if [ "$UNAME" == "linux" ]; then
   mkdir -p ~/.npm-global
   npm config set prefix '~/.npm-global'
   export PATH=~/.npm-global/bin:$PATH
-  # For typescript-tools
-  npm install -g typescript
+  # For typescript-tools (non-fatal — npm may not be available in all envs)
+  if ! npm install -g typescript; then
+    echo "WARNING: npm install -g typescript failed — skipping (typescript-tools may not work)"
+  fi
 
   echo "Installing neovim..."
   mkdir -p "$HOME/.local/bin"

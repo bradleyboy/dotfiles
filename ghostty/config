@@ -47,3 +47,4 @@ foreground = #c0caf5
 cursor-color = #c0caf5
 selection-background = #2e3c64
 selection-foreground = #c0caf5
+keybind = shift+enter=text:\x1b\r

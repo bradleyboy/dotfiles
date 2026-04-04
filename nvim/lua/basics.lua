@@ -68,6 +68,10 @@ vim.opt.scrolloff = 10
 -- See `:help 'confirm'`
 vim.opt.confirm = true
 
+-- Line navigation that fits my brain better, works with word wrap
+vim.keymap.set("n", "j", "gj")
+vim.keymap.set("n", "k", "gk")
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 

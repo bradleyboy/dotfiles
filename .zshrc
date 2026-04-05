@@ -12,8 +12,8 @@ COMPLETION_WAITING_DOTS="true"
 export PATH="$PATH:$HOME/.fzf/bin:$HOME/.rvm/bin:$HOME/.deno/bin:$HOME/.cargo/bin:$HOME/bin:$HOME/.local/bin"
 [[ "$(uname)" == "Darwin" ]] && export PATH="$PATH:/opt/homebrew/bin"
 [[ "$(uname)" == "Linux" ]] && export PATH="$PATH:$HOME/.npm-global/bin"
-export EDITOR="nvim"
-export VISUAL="nvim"
+export EDITOR="nvim --clean -u ~/.config/nvim/init-lite.lua"
+export VISUAL="nvim --clean -u ~/.config/nvim/init-lite.lua"
 
 bindkey -v
 autoload edit-command-line; zle -N edit-command-line

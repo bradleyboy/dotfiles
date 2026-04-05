@@ -119,7 +119,6 @@ return {
 							local opts = {
 								focusable = false,
 								close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-								border = "rounded",
 								source = "always",
 								prefix = " ",
 								scope = "cursor",
@@ -144,7 +143,7 @@ return {
 			-- See :help vim.diagnostic.Opts
 			vim.diagnostic.config({
 				severity_sort = true,
-				float = { border = "rounded", source = "if_many" },
+				float = { source = "if_many" },
 				underline = { severity = { min = vim.diagnostic.severity.WARN } },
 				signs = vim.g.have_nerd_font and {
 					text = {

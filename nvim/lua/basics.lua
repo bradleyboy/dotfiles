@@ -4,6 +4,7 @@ vim.g.mapleader = ","
 vim.g.maplocalleader = ","
 
 vim.o.termguicolors = true
+vim.o.winborder = "rounded"
 
 vim.g.have_nerd_font = true
 

@@ -34,16 +34,23 @@ if [ "$UNAME" == "linux" ]; then
   ARCH=$(uname -m)
   if [ "$ARCH" == "aarch64" ] || [ "$ARCH" == "arm64" ]; then
     NVIM_ARCH="arm64"
+    TS_ARCH="arm64"
   else
     NVIM_ARCH="x86_64"
+    TS_ARCH="x64"
   fi
   curl -sL "https://github.com/neovim/neovim/releases/download/stable/nvim-linux-${NVIM_ARCH}.appimage" -o "$HOME/.local/bin/nvim"
   chmod +x "$HOME/.local/bin/nvim"
+
+  echo "Installing tree-sitter-cli..."
+  curl -sL "https://github.com/tree-sitter/tree-sitter/releases/download/v0.26.8/tree-sitter-linux-${TS_ARCH}.gz" | gunzip > "$HOME/.local/bin/tree-sitter"
+  chmod +x "$HOME/.local/bin/tree-sitter"
 else
   brew install tmux
   brew install fd
   brew install z
   brew install neovim
+  brew install tree-sitter-cli
   brew install highlight
   brew install ripgrep
   brew install ghostty

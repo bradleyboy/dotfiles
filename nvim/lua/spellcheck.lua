@@ -4,6 +4,7 @@ local spell_types =
 
 -- Set global spell option to false initially to disable it for all file types
 vim.opt.spell = false
+vim.opt.spellfile = vim.fn.stdpath("config") .. "/spell/en.utf-8.add"
 
 -- Create an augroup for spellcheck to group related autocommands
 vim.api.nvim_create_augroup("Spellcheck", { clear = true })

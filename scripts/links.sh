@@ -9,6 +9,5 @@ ln -sf "$SCRIPT_DIR/gitconfig.aliases" ~/.gitconfig.aliases
 ln -sf "$SCRIPT_DIR/CLAUDE.md" ~/.claude/CLAUDE.md
 
 if [[ "$(uname)" == "Darwin" ]]; then
-  ln -sf "$SCRIPT_DIR/alacritty" ~/.config/alacritty
   ln -sf "$SCRIPT_DIR/ghostty" ~/.config/ghostty
 fi

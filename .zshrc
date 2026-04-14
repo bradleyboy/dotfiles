@@ -115,7 +115,7 @@ devbox() {
     echo "Usage: devbox <name>"
     return 1
   fi
-  pay remote new "$1" --repo "stripe-internal/mint:bdaily-$1" --workspace pay-server --ide none -y --notify-on-ready --ssh --tmux
+  pay remote new "$1" --repo "stripe-internal/mint:bdaily-$1" --region cmh --workspace pay-server --ide none -y --notify-on-ready --ssh --tmux
 }
 
 # If devbox name exists, use it in the title

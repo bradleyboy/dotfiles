@@ -17,6 +17,7 @@ fullscreen = true
 mouse-hide-while-typing = true
 link-url = true
 macos-titlebar-proxy-icon = hidden
+macos-option-as-alt = left
 
 # Boxy cursory
 cursor-style = block

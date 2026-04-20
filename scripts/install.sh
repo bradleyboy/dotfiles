@@ -7,6 +7,23 @@ echo "Making sure pure prompt is installed"
 mkdir -p "$HOME/.zsh"
 [ ! -d "$HOME/.zsh/pure" ] && git clone https://github.com/sindresorhus/pure.git "$HOME/.zsh/pure"
 
+echo "Syncing claude-skills"
+mkdir -p "$HOME/.claude"
+SKILLS_DIR="$HOME/.claude/skills"
+SKILLS_URL="https://github.com/bradleyboy/claude-skills.git"
+if [ ! -d "$SKILLS_DIR" ]; then
+  git clone "$SKILLS_URL" "$SKILLS_DIR"
+else
+  STASHED=0
+  if ! git -C "$SKILLS_DIR" diff --quiet || ! git -C "$SKILLS_DIR" diff --cached --quiet; then
+    git -C "$SKILLS_DIR" stash push -u -m "dotfiles-install autostash" && STASHED=1
+  fi
+  git -C "$SKILLS_DIR" pull --ff-only || echo "WARNING: claude-skills pull failed — leaving as-is"
+  if [ "$STASHED" -eq 1 ]; then
+    git -C "$SKILLS_DIR" stash pop || echo "WARNING: claude-skills stash pop had conflicts — resolve manually in $SKILLS_DIR"
+  fi
+fi
+
 if [ "$UNAME" == "linux" ]; then
   sudo apt update
   sudo apt-get -y install tmux highlight fd-find ripgrep

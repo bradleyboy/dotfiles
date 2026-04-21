@@ -139,7 +139,13 @@ devbox() {
   pay remote new "$1" --repo "stripe-internal/mint:bdaily-$1" --region cmh --workspace pay-server --ide none -y --notify-on-ready --ssh --tmux
 }
 
-# If devbox name exists, use it in the title
+# Devbox: colored status bar badge for tab differentiation
 if [[ "$(uname)" == "Linux" && -n "$box_name" ]]; then
+  local _db_colors=('#7dcfff' '#bb9af7' '#9ece6a' '#ff9e64')
+  local _db_idx=${DEVBOX_COLOR_IDX:-$(( $(echo -n "$box_name" | cksum | cut -d' ' -f1) % 4 ))}
+  local _db_color="${_db_colors[$_db_idx+1]}"
+
   tmux set-option -g set-titles-string "$box_name / #W"
+  tmux set-option -g status-left-length 30
+  tmux set-option -g status-left "#[fg=#24283b,bg=${_db_color},bold] ${box_name} #[fg=${_db_color},bg=#24283b] "
 fi

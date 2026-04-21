@@ -136,7 +136,28 @@ devbox() {
     echo "Usage: devbox <name>"
     return 1
   fi
-  pay remote new "$1" --repo "stripe-internal/mint:bdaily-$1" --region cmh --workspace pay-server --ide none -y --notify-on-ready --ssh --tmux
+  pay remote new "$1" --repo "stripe-internal/mint:bdaily-$1" --region cmh --workspace pay-server --ide none -y --notify-on-ready
+  gh-auth-devbox "$1"
+  pay remote ssh "$1" --tmux
+}
+
+gh-auth-devbox() {
+  local name="$1"
+
+  echo "Authenticating GitHub on $name ..."
+
+  pay remote ssh "$name" -- '
+    if ! command -v gh >/dev/null 2>&1; then
+      sudo apt-get update && sudo apt-get install -y gh
+    fi
+  '
+
+  local token
+  token="$(gh auth token -h git.corp.stripe.com)"
+  echo "$token" | pay remote ssh "$name" -- 'gh auth login -p ssh -h git.corp.stripe.com --with-token'
+
+  pay remote ssh "$name" -- 'gh auth status -h git.corp.stripe.com'
+  echo "GitHub authentication complete."
 }
 
 # Devbox: colored status bar badge for tab differentiation

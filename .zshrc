@@ -167,6 +167,7 @@ if [[ "$(uname)" == "Linux" && -n "$box_name" ]]; then
   local _db_color="${_db_colors[$_db_idx+1]}"
 
   tmux set-option -g set-titles-string "$box_name / #W"
-  tmux set-option -g status-left-length 30
+  local _db_left_len=$(( ${#box_name} + 4 ))
+  tmux set-option -g status-left-length "$_db_left_len"
   tmux set-option -g status-left "#[fg=#24283b,bg=${_db_color},bold] ${box_name} #[fg=${_db_color},bg=#24283b] "
 fi

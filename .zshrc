@@ -19,10 +19,7 @@ bindkey -v
 autoload edit-command-line; zle -N edit-command-line
 bindkey -M vicmd v edit-command-line
 
-# Load Stripe shellinit early so Pure prompt overrides its default PROMPT
-if [[ -f ~/.stripe/shellinit/zshrc ]]; then
-  source ~/.stripe/shellinit/zshrc
-fi
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
 
 # pure prompt
 fpath+=($HOME/.zsh/pure)
@@ -130,44 +127,3 @@ export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
 "
 
 [ -f "$HOME/.local/share/../bin/env" ] && . "$HOME/.local/share/../bin/env"
-
-devbox() {
-  if [[ -z "$1" ]]; then
-    echo "Usage: devbox <name>"
-    return 1
-  fi
-  pay remote new "$1" --repo "stripe-internal/mint:bdaily-$1" --region cmh --workspace pay-server --ide none -y --notify-on-ready
-  gh-auth-devbox "$1"
-  pay remote ssh "$1" --tmux
-}
-
-gh-auth-devbox() {
-  local name="$1"
-
-  echo "Authenticating GitHub on $name ..."
-
-  pay remote ssh "$name" -- '
-    if ! command -v gh >/dev/null 2>&1; then
-      sudo apt-get update && sudo apt-get install -y gh
-    fi
-  '
-
-  local token
-  token="$(gh auth token -h git.corp.stripe.com)"
-  echo "$token" | pay remote ssh "$name" -- 'gh auth login -p ssh -h git.corp.stripe.com --with-token'
-
-  pay remote ssh "$name" -- 'gh auth status -h git.corp.stripe.com'
-  echo "GitHub authentication complete."
-}
-
-# Devbox: colored status bar badge for tab differentiation
-if [[ "$(uname)" == "Linux" && -n "$box_name" ]]; then
-  local _db_colors=('#7dcfff' '#bb9af7' '#9ece6a' '#ff9e64')
-  local _db_idx=${DEVBOX_COLOR_IDX:-$(( $(echo -n "$box_name" | cksum | cut -d' ' -f1) % 4 ))}
-  local _db_color="${_db_colors[$_db_idx+1]}"
-
-  tmux set-option -g set-titles-string "$box_name / #W"
-  local _db_left_len=$(( ${#box_name} + 4 ))
-  tmux set-option -g status-left-length "$_db_left_len"
-  tmux set-option -g status-left "#[fg=#24283b,bg=${_db_color},bold] ${box_name} #[fg=${_db_color},bg=#24283b] "
-fi

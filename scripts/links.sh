@@ -7,6 +7,7 @@ ln -sf "$SCRIPT_DIR/.tmux.conf" ~/.tmux.conf
 ln -sf "$SCRIPT_DIR/nvim" ~/.config/nvim
 ln -sf "$SCRIPT_DIR/gitconfig.aliases" ~/.gitconfig.aliases
 ln -sf "$SCRIPT_DIR/CLAUDE.md" ~/.claude/CLAUDE.md
+ln -sf "$SCRIPT_DIR/.claude/settings.json" ~/.claude/settings.json
 
 if [[ "$(uname)" == "Darwin" ]]; then
   ln -sf "$SCRIPT_DIR/ghostty" ~/.config/ghostty

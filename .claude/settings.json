@@ -2,13 +2,6 @@
   "env": {
     "CLAUDE_CODE_NO_FLICKER": 1
   },
-  "enabledPlugins": {
-    "pay@stripe-internal-marketplace": true,
-    "stripe-js@stripe-internal-marketplace": true,
-    "claudeboard@stripe-internal-marketplace": true,
-    "send-slack-notifications@stripe-internal-marketplace": true,
-    "superpowers@stripe-internal-marketplace": true
-  },
   "model": "opus",
   "statusLine": {
     "type": "command",

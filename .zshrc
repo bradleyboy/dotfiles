@@ -20,6 +20,7 @@ autoload edit-command-line; zle -N edit-command-line
 bindkey -M vicmd v edit-command-line
 
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
+[[ -f ~/.secrets ]] && source ~/.secrets
 
 # pure prompt
 fpath+=($HOME/.zsh/pure)

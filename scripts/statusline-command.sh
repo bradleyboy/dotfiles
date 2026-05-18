@@ -27,6 +27,9 @@ model=$(echo "$input" | jq -r '.model.display_name // ""')
 
 used_pct=$(echo "$input" | jq -r '.context_window.used_percentage // empty')
 
+five_hour_used=$(echo "$input" | jq -r '.rate_limits.five_hour.used_percentage // empty')
+five_hour_resets_at=$(echo "$input" | jq -r '.rate_limits.five_hour.resets_at // empty')
+
 # Colors matching pure/tokyonight palette
 RESET="\033[0m"
 DIM="\033[2m"
@@ -34,6 +37,8 @@ BLUE="\033[38;2;122;162;247m"      # tokyonight blue (#7aa2f7)
 PURPLE="\033[38;2;169;177;214m"    # pure git branch color (#a9b1d6)
 MUTED="\033[38;2;86;95;137m"       # tokyonight comment (#565f89)
 CYAN="\033[38;2;42;195;222m"       # tokyonight cyan (#2ac3de)
+YELLOW="\033[38;2;224;175;104m"    # tokyonight yellow (#e0af68)
+RED="\033[38;2;247;118;142m"       # tokyonight red (#f7768e)
 
 # Build the line
 line=""
@@ -60,6 +65,24 @@ line+=" $(printf "${CYAN}%s${RESET}" "$short_model")"
 if [ -n "$used_pct" ]; then
   used_int=$(printf '%.0f' "$used_pct")
   line+=" $(printf "${MUTED}ctx:%s%%${RESET}" "$used_int")"
+fi
+
+# 5-hour rate limit remaining, if available
+if [ -n "$five_hour_used" ]; then
+  five_hour_remaining=$(printf '%.0f' "$(echo "100 - $five_hour_used" | bc -l)")
+  if [ "$five_hour_remaining" -lt 10 ]; then
+    five_hour_color="$RED"
+  elif [ "$five_hour_remaining" -lt 20 ]; then
+    five_hour_color="$YELLOW"
+  else
+    five_hour_color="$MUTED"
+  fi
+  five_hour_label="5h:${five_hour_remaining}%"
+  if [ -n "$five_hour_resets_at" ]; then
+    reset_time=$(date -r "$five_hour_resets_at" "+%-I:%M%p" | tr 'A-Z' 'a-z' | sed 's/m$//')
+    five_hour_label="${five_hour_label}→${reset_time}"
+  fi
+  line+=" $(printf "${five_hour_color}%s${RESET}" "$five_hour_label")"
 fi
 
 printf "%b\n" "$line"

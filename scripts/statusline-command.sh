@@ -25,6 +25,8 @@ fi
 
 model=$(echo "$input" | jq -r '.model.display_name // ""')
 
+effort=$(echo "$input" | jq -r '.effort.level // empty')
+
 used_pct=$(echo "$input" | jq -r '.context_window.used_percentage // empty')
 
 five_hour_used=$(echo "$input" | jq -r '.rate_limits.five_hour.used_percentage // empty')
@@ -60,6 +62,11 @@ line+="$(printf " ${MUTED}|${RESET}")"
 # model (cyan, shortened: strip "Claude " prefix and version suffix for brevity)
 short_model=$(echo "$model" | sed 's/^Claude //' | sed 's/ [0-9]*\.[0-9]*$//')
 line+=" $(printf "${CYAN}%s${RESET}" "$short_model")"
+
+# reasoning effort, if available
+if [ -n "$effort" ]; then
+  line+=" $(printf "${YELLOW}%s${RESET}" "$effort")"
+fi
 
 # context window usage, if available
 if [ -n "$used_pct" ]; then

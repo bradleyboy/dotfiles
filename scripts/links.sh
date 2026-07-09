@@ -4,6 +4,8 @@ SCRIPT_DIR=$( dirname $( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/nul
 
 ln -sf "$SCRIPT_DIR/.zshrc" ~/.zshrc
 ln -sf "$SCRIPT_DIR/.tmux.conf" ~/.tmux.conf
+ln -sf "$SCRIPT_DIR/.gitignore_global" ~/.gitignore_global
+git config --global core.excludesfile ~/.gitignore_global
 ln -sf "$SCRIPT_DIR/nvim" ~/.config/nvim
 ln -sf "$SCRIPT_DIR/gitconfig.aliases" ~/.gitconfig.aliases
 ln -sf "$SCRIPT_DIR/CLAUDE.md" ~/.claude/CLAUDE.md
